@@ -83,6 +83,20 @@ else
  # Key doesn't have a value
 end
 
+# Remember hashes are good to group stuff by a string
+# If you have an array of people objects, and want to group by hair color, iterate on people, hash key is 
+# hair color string
+
+hair_hash = {}
+people.each {|person|
+ if hair_hash[person.hair]
+  hair_hash[person.hair] << person
+ else
+  hair_hash[person.hair] = [person]
+ end
+}
+
+# Other Stuff
 hash.select{ |key, value| value > 3 } # selects all keys in hash that have a value greater than 3
 hash.each_key { |k| print k, " " } # ==> key1 key2
 hash.each_value { |v| print v } # ==> value1value2
