@@ -57,9 +57,12 @@ MY_CONSTANT = # something
 my_array = [a,b,c,d,e]
 my_array[1] # Getting value from Array, which is 'b' in this case
 my_array[4] = f # Setting value in Array
+[1, 2, 3] << 4 # [1, 2, 3, 4] same as [1, 2, 3].push(4)
+
+# Other stuff
 my_array[2..-1] # c , d , e
 multi_d = [[0,1],[0,1]]
-[1, 2, 3] << 4 # [1, 2, 3, 4] same as [1, 2, 3].push(4)
+
 ```
 
 ### Hashes
