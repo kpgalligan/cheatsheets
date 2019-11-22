@@ -96,6 +96,22 @@ people.each {|person|
  end
 }
 
+hair_hash["brown"] # Gets an array of people objects with brown hair
+
+# Also remember counting
+
+hair_count_hash = {}
+people.each {|person|
+ if hair_count_hash[person.hair]
+  hair_count_hash[person.hair] += 1
+ else
+  hair_count_hash[person.hair] = 1
+ end
+}
+
+hair_count_hash["brown"] # Gets an integer, which is the number of people with brown hair
+
+
 # Other Stuff
 hash.select{ |key, value| value > 3 } # selects all keys in hash that have a value greater than 3
 hash.each_key { |k| print k, " " } # ==> key1 key2
