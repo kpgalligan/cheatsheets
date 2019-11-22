@@ -55,7 +55,8 @@ MY_CONSTANT = # something
 
 ```Ruby
 my_array = [a,b,c,d,e]
-my_array[1] –– b
+my_array[1] –– b # Getting value from Array
+my_array[4] = f # Setting value in Array
 my_array[2..-1] # c , d , e
 multi_d = [[0,1],[0,1]]
 [1, 2, 3] << 4 # [1, 2, 3, 4] same as [1, 2, 3].push(4)
@@ -67,8 +68,8 @@ multi_d = [[0,1],[0,1]]
 hash = { "key1" => "value1", "key2" => "value2" } # same as objects in JavaScript
 hash = { key1: "value1", key2: "value2" } # the same hash using symbols instead of strings
 my_hash = Hash.new # same as my_hash = {} – set a new key like so: pets["Stevie"] = "cat"
-pets["key1"] # value1
-pets["Stevie"] # cat
+pets["key1"] # value1 Getting a value for key 'key1'
+pets["key3"] = "value3" # Setting value for key 'key3'
 my_hash = Hash.new("default value")
 hash.select{ |key, value| value > 3 } # selects all keys in hash that have a value greater than 3
 hash.each_key { |k| print k, " " } # ==> key1 key2
