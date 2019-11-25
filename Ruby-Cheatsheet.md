@@ -208,6 +208,7 @@ bink = Wog.new
 *wrong number of arguments (given 0, expected 2) (ArgumentError)*
 
 This always means you didn't send the right number of arguments. Look at the method definition, and add arguments.
+In this case, `Wog.new` needs 2 arguments, but we're passing nothing.
 
 ### You're calling methods on obect instances!!!
 
@@ -249,6 +250,37 @@ In `adoptMe`, we're not calling `adoptWog` on the owner. This is very important.
     owner.adoptWog(self)
   end
 ```
+
+### Things to remember
+
+Take a step back and work through the steps you would take if this was "real world". A lot of the issues are 
+logical and not technical.
+
+Read the error carefully. It'll often point you right at the issue.
+
+When you think "I've already tried that!", sometimes you tried something very similar, but not 100% right. 
+It's very easy to be missing some charaters or whatever. That usually happens when you need to be calling 
+a method on an object. Like above, calling:
+
+```ruby
+adoptWog(self)
+```
+
+instead of:
+
+```ruby
+owner.adoptWog(self)
+```
+
+Also, if the error tells you you're missing parameters, you are missing parameters.
+
+Also!!! If you see:
+
+```
+undefined method `somedata=' for ...
+```
+
+You probably have `attr_reader` instead of `attr_accessor`
 
 ## Blocks & Procs
 
