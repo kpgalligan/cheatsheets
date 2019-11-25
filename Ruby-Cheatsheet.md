@@ -165,77 +165,89 @@ class ClassName # class names are rather written in camelcase
   @@count = 0
   attr_reader :name # make it readable
   attr_writer :name # make it writable
-  attr_accessor :name # makes it readable and writable
+  attr_accessor :numval # makes it readable and writable
 
-  def Methodname(parameter)
-    @classVariable = parameter
-    @@count += 1
+  # Remember parameter names don't have to be the same as the attributes (although they usually are)
+  def initialize(thename, num_with_default = 42)
+    @name = thename
+    @numval = num_with_default
   end
 
-  def self.show_classVariable
-    @classVariable
+  def methodname(somenum)
+    @@count += somenum
   end
 
-  def Person.get_counts # is a class method
-    return @@count
+  def self.cound
+    @@count
   end
-
-  private
-
-  def private_method; end # Private methods go here
 end
 
-matz = Person.new("Yukihiro")
-matz.show_name # Yukihiro
+a = ClassName.new("firstone")
+a.name # firstone
+a.numval # 42
+b = ClassName.new("secondone", 23)
+b.numval # 23
 ```
 
-### inheritance
+## Errors
 
-```Ruby
-class DerivedClass < BaseClass; end # if you want to end a Ruby statement without going to a new line, you can just type a semicolon.
+### Remember the arguments!!!
 
-class DerivedClass < Base
-  def some_method
-    super(optional args) # When you call super from inside a method, that tells Ruby to look in the superclass of the current class and find a method with the same name as the one from which super is called. If it finds it, Ruby will use the superclass' version of the method.
-      # Some stuff
-    end
+```ruby
+class Wog
+  attr_accessor :name, :weight
+  def initialize(name, weight)
+    @name = name
+    @weight = weight
   end
 end
 
-# Any given Ruby class can have only one superclass. Use mixins if you want to incorporate data or behavior from several classes into a single class.
+bink = Wog.new
 ```
 
-## Modules
+*wrong number of arguments (given 0, expected 2) (ArgumentError)*
 
-```Ruby
-module ModuleName # module names are rather written in camelcase
-  # variables in modules doesn't make much sence since modules do not change. Use constants.
-end
+This always means you didn't send the right number of arguments. Look at the method definition, and add arguments.
 
-Math::PI # using PI constant from Math module. Double colon = scope resolution operator = tells Ruby where you're looking for a specific bit of code.
+### You're calling methods on obect instances!!!
 
-require 'date' # to use external modules.
-puts Date.today # 2016-03-18
+```ruby
+class Wog
+  attr_accessor :name, :weight, :owner
+  def initialize(name, weight)
+    @name = name
+    @weight = weight
+    @owner = nil
+  end
 
-module Action
-  def jump
-    @distance = rand(4) + 2
-    puts "I jumped forward #{@distance} feet!"
+  def adoptMe(owner)
+    self.owner = owner
+    adoptWog(self)
   end
 end
 
-class Rabbit
-  include Action # Any class that includes a certain module can use those module's methods! This now is called a Mixin.
-  extend Action # extend keyword mixes a module's methods at the class level. This means that class itself can use the methods, as opposed to instances of the class.
-  attr_reader :name
+class Owner
+  attr_accessor :name
   def initialize(name)
     @name = name
+    @wogs = []
+  end
+
+  def adoptWog(wog)
+    @wogs << wog
   end
 end
+```
 
-peter = Rabbit.new("Peter")
-peter.jump # include
-Rabbit.jump # extend
+*undefined method `adoptWog' for #<Wog:0x00007fd60094e368> (NoMethodError)*
+
+In `adoptMe`, we're not calling `adoptWog` on the owner. This is very important. It should look like this.
+
+```ruby
+  def adoptMe(owner)
+    self.owner = owner
+    owner.adoptWog(self)
+  end
 ```
 
 ## Blocks & Procs
@@ -411,34 +423,6 @@ until i == 6
 end
 ```
 
-### For loop
-
-```Ruby
-for i in 1...10 # ... tells ruby to exclude the last number (here 10 if we .. only then it includes the last num)
-  puts i
-end
-```
-
-### Loop iterator
-
-```Ruby
-i = 0
-loop do
-  i += 1
-  print "I'm currently number #{i}” # a way to have ruby code in a string
-  break if i > 5
-end
-```
-
-### Next
-
-```Ruby
-for i in 1..5
-  next if i % 2 == 0 # If the remainder of i / 2 is zero, we go to the next iteration of the loop.
-  print i
-end
-```
-
 ### .each
 
 ```Ruby
@@ -453,30 +437,6 @@ on hashes like so:
 hashes.each do |x,y|
   print "#{x}: #{y}"
 end
-```
-
-### .times
-
-```Ruby
-10.times do
-  print “this text will appear 10 times”
-end
-```
-
-### .upto / .downto
-
-```Ruby
-10.upto(15) { |x| print x, " " } # 10 11 12 13 14 15
-"a".upto("c") { |x| print x, " " } # a b c
-```
-
-## Sorting & Comparing
-
-```Ruby
-array = [5,4,1,3,2]
-array.sort! # = [1,2,3,4,5] – works with text and other as well.
-"b" <=> "a" # = 1 – combined comparison operator. Returns 0 if first = second, 1 if first > second, -1 if first < second
-array.sort! { |a, b| b <=> a } # to sort from Z to A instead of A to Z
 ```
 
 ## Usefull Methods
