@@ -4,7 +4,18 @@
 
 ## Kevin Notes
 
-If you see "undefined" for a method on an object, the object isn't the type you think it is.
+If you see "undefined" for a method/field on an object, the object isn't the type you think it is. For example:
+
+```javascript
+let myDiv = document.getElementsByClassName("my-div")
+myDiv.remove() //<- "myDiv" is actually a collection. You'll get "undefined" for "removed()"
+```
+
+The previous should be:
+```javascript
+let myDiv = document.getElementsByClassName("my-div")[0] //<- Get the first entry
+myDiv.remove()
+```
 
 document.getElementById() - returns a single element (or null)
 
@@ -12,13 +23,25 @@ document.getElementsByClassName() or getElementsByTagName() - return a COLLECTIO
 
 getElementsByTagName, getElementsByClassName, getElementById can be called on the document as well as html elements
 
+`data` elements get added to javascript with specific names:
+
+```html
 <p id="example" data-id="21" data-other="Abc" data-multiple-names="Hello">
+```
   
 ```javascript
 val ex = document.getElementById("example")
 val dataId = ex.dataset.id
 val dataOther = ex.dataset.other
 val dataMultNames = ex.dataset.multipleNames // <- Remember to camel case capitalize
+```
+
+Remember, if you need to find a specific element for a particular piece of data, all html elements can have an `id` value, and you can put unique values in there. Remember `trainerId` from the code lab. For trainerId of 33 you could tag the `ul` that lists pokemons for that trainer like the following:
+
+```html
+<div>Prince</div>
+<ul id='pokelist_33'></ul>
+etc...
 ```
 
 ## Table of Contents  
