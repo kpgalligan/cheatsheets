@@ -2,6 +2,25 @@
 
 # JavaScript Cheatsheet
 
+## Kevin Notes
+
+If you see "undefined" for a method on an object, the object isn't the type you think it is.
+
+document.getElementById() - returns a single element (or null)
+
+document.getElementsByClassName() or getElementsByTagName() - return a COLLECTION of elements
+
+getElementsByTagName, getElementsByClassName, getElementById can be called on the document as well as html elements
+
+<p id="example" data-id="21" data-other="Abc" data-multiple-names="Hello">
+  
+```javascript
+val ex = document.getElementById("example")
+val dataId = ex.dataset.id
+val dataOther = ex.dataset.other
+val dataMultNames = ex.dataset.multipleNames // <- Remember to camel case capitalize
+```
+
 ## Table of Contents  
 [Basics](#basics)  
 [Arrays & Objects](#arrays--objects)    
